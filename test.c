@@ -2,7 +2,7 @@
 
 int main() {
     
-    printf("Try programiz.pro");
+    printf("Hello WOrld");
 
     return 0;
 }
