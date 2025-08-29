@@ -120,6 +120,8 @@ List insertSorted(List L, int data){
     for(int i = 0; i < L.count; i++){
         if(L.elem[i] > data && L.elem[i - 1] < data){
             pos = i;
+        }else if(data > L.elem[i]){
+            pos = i + 1;
         }
     }
 
