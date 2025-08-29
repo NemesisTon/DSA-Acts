@@ -19,7 +19,7 @@ void display(List L);
 int main(){
     List L;
     
-    initialize(L);
+    L = initialize(L);
     L.elem[0] = 0;
     L.elem[1] = 11;
     L.elem[2] = 22;
