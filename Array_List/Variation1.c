@@ -13,6 +13,7 @@ List insertPos(List L, int data, int position);
 List deletePos(List L, int position);
 int locate(List L, int data);
 List insertSorted(List L, int data);
+List deleteValue(List L, int data);
 void display(List L);
 
 int main(){
@@ -26,13 +27,13 @@ int main(){
     L.elem[4] = 44;
     L.count = 5;
 
-    printf("1. Insert 77 in Position 2: \n");
+    printf("1. Insert 77 in Position 3: \n");
     L = insertPos(L, 77, 2);
     display(L);
     
     printf("\n\n");
 
-    printf("2. Delete Position 2: \n");
+    printf("2. Delete Position 3: \n");
     L = deletePos(L, 2);
     display(L);
 
@@ -52,6 +53,12 @@ int main(){
 
     printf("4. Insert sorted #25 in the array.\n");
     L = insertSorted(L, 25);
+    display(L);
+
+    printf("\n\n");
+
+    printf("5. Delete #25 in the array.\n");
+    L = deleteValue(L, 25);
     display(L);
 
     return 0;
@@ -115,7 +122,6 @@ List insertSorted(List L, int data){
             pos = i;
         }
     }
-    printf("P: %d\t", pos);
 
     for(int i = L.count; i >= pos; i--){
         L.elem[i] = L.elem[i - 1];
@@ -125,6 +131,22 @@ List insertSorted(List L, int data){
     }
     L.count++;
 
+    return L;
+}
+
+List deleteValue(List L, int data){
+    if(L.count > MAX){
+        printf("The array should be equal or less than count.\n");
+    }
+
+    int pos = locate(L, data);
+    pos--;
+    if(pos < 0){
+        printf("The value did not exist in the array.\n");
+        return L;
+    }
+
+    L = deletePos(L, pos);
     return L;
 }
 
