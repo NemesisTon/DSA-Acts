@@ -51,7 +51,7 @@ int main(){
     printf("\n\n");
 
     printf("4. Insert #10 in the array.\n");
-    L = insertSorted(L, 60);
+    L = insertSorted(L, 10);
     display(L); 
 
     return 0;
@@ -136,7 +136,7 @@ List  insertSorted(List L, int data){
         }
     }
     L.count++;
-    
+
     return L;
 }
 
