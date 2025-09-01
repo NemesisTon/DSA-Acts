@@ -64,16 +64,16 @@ void deleteId(List *L, unsigned int id) {
     if (temp == NULL) {
         printf("Student with ID %u not found.\n", id);
         return;
-    }
+    }else{
+        if (prev == NULL) { // deleting head
+            L->head = temp->next;
+        } else {
+            prev->next = temp->next;
+        }
 
-    if (prev == NULL) { // deleting head
-        L->head = temp->next;
-    } else {
-        prev->next = temp->next;
+        free(temp);
+        printf("Deleted student with ID %u\n", id);
     }
-
-    free(temp);
-    printf("Deleted student with ID %u\n", id);
 }
 
 void display(List L) {
