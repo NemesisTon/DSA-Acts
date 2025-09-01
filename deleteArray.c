@@ -38,7 +38,7 @@ void deleteId(ListPtr List, int id){
         List->count--;
         printf("ID: %d is successfully deleted.\n\n", id);
     }else{
-        printf("ID: %d is not found in the database.\n\n", id);
+        printf("ID: %d is not found in the list.\n\n", id);
     }
     
 }
