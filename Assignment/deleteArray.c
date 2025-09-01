@@ -53,6 +53,7 @@ void display(StudList List){
         printf("ID: %d\n", List.StudArray[i].ID);
         printf("Course: %s\n", List.StudArray[i].Course);
         printf("Year Level: %d\n\n", List.StudArray[i].YrLvl);
+        printf("------------------------------\n");
     }
 }
 
