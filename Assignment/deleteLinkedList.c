@@ -65,7 +65,7 @@ void deleteId(List *L, unsigned int id) {
         printf("Student with ID %u not found.\n", id);
         return;
     }else{
-        if (prev == NULL) { // deleting head
+        if (prev == NULL) {
             L->head = temp->next;
         } else {
             prev->next = temp->next;
