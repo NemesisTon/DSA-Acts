@@ -22,6 +22,8 @@ void deleteLast(List *list);
 // void deletePos(List *list, int index);
 // int retrieve(List *list, int index);
 // int locate(List *list, int data);
+// void insertSort(List *list, int data);
+// void sortList(List *list);
 void display(List *list);
 
 int main(){
