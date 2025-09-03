@@ -20,29 +20,90 @@ void insertPos(List *list, int data, int index);
 void deleteStart(List *list);
 void deleteLast(List *list);
 void deletePos(List *list, int index);
-// int retrieve(List *list, int index);
-// int locate(List *list, int data);
-// void insertSort(List *list, int data);
-// void sortList(List *list);
+int retrieve(List *list, int index);
+int locate(List *list, int data);
+void insertSort(List *list, int data);
+void sortList(List *list);
 void display(List *list);
 
 int main(){
     List *L;
 
     L = initialize();
+
+    printf("Insert First: \n");
+    insertFirst(L, 66);
+    insertFirst(L, 55);
     insertFirst(L, 44);
     insertFirst(L, 33);
     insertFirst(L, 22);
     insertFirst(L, 11);
-    // insertLast(L, 99);
-    // empty(L);
-    // deleteStart(L);
-    // deleteLast(L);
-    deletePos(L, 5);
     display(L);
 
+    printf("Insert Last: \n");
+    insertLast(L, 99);
+    display(L);
+
+    printf("Delete First: \n");
+    deleteStart(L);
+    display(L);
+
+    printf("Delete Last: \n");
+    deleteLast(L);
+    display(L);
+
+    printf("Delete Position: \n");
+    deletePos(L, 2);
+    display(L);
+
+    printf("Retrieve Data: \n");
+    int res = retrieve(L, 3);
+    if(res > 0){
+        printf("The data retrieve from that position is %d.\n", res);
+        display(L);
+    }
+
+    printf("Locate Data: \n");
+    int got = locate(L, 33);
+    if(got > 0){
+        printf("The data is located in position %d.\n", got);
+        display(L);
+    }else{
+        printf("The data did not exist in the list.\n");
+        display(L);
+    }
+
+    empty(L);
     return 0;
 }
+
+int locate(List *list, int data){
+    int got = 0;
+    
+    Node *trav = list->head;
+    for(int i = 0; trav != NULL; trav = trav->next, i++){
+        if(trav->data == data){
+            got = i;
+        }
+    }
+    
+    return got >= 0 ? got : -1;
+}
+
+int retrieve(List *list, int index){
+    int res = 0;
+    if(index >= list->count){
+        printf("The index should be less than to count.\n");
+    }else{
+        Node *trav = list->head;
+        for(int i = 0; i < index; i++){
+            trav = trav->next;
+        }
+        res = trav->data;
+    }
+    return res > 0 ? res : -1;
+}
+
 void deletePos(List *list, int index){
     if(index > list->count){
         printf("The index should be less than or equal to count.\n");
@@ -51,7 +112,20 @@ void deletePos(List *list, int index){
     }else if(index == list->count){
         deleteLast(list);
     }else{
-        Node *trav;
+        Node *trav, *curr, * prev;
+        
+        trav = list->head;
+        prev = trav;
+        for(int i = 0; i < index; i++){
+            trav = trav->next;
+           if(i < index - 1){
+               prev = trav;
+           }
+       }
+       curr = trav->next;
+       free(trav);
+       prev->next = curr;
+       list->count--;
     }
 }
 
@@ -148,12 +222,12 @@ void display(List *list){
     printf("Linked List Elem: [");
     Node *trav;
     if(list->count == 1){
-        printf("%d]", list->head->data);
+        printf("%d]\n\n", list->head->data);
     }else{
         for(trav = list->head; trav->next != NULL; trav = trav->next){
             printf("%d, ", trav->data);
             if(trav->next->next == NULL){
-                printf("%d]", trav->next->data);
+                printf("%d]\n\n", trav->next->data);
             }
         }    
     }
