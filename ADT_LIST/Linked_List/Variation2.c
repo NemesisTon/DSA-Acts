@@ -17,13 +17,13 @@ void empty(List *list);
 void insertFirst(List *list, int data);
 void insertLast(List *list, int data);
 void insertPos(List *list, int data, int index);
+void insertSort(List *list, int data);
+void sortList(List *list);
 void deleteStart(List *list);
 void deleteLast(List *list);
 void deletePos(List *list, int index);
 int retrieve(List *list, int index);
 int locate(List *list, int data);
-void insertSort(List *list, int data);
-void sortList(List *list);
 void display(List *list);
 
 int main(){
@@ -31,49 +31,51 @@ int main(){
 
     L = initialize();
 
-    printf("Insert First: \n");
-    insertFirst(L, 66);
-    insertFirst(L, 55);
+    printf("Insert First\n");
     insertFirst(L, 44);
     insertFirst(L, 33);
     insertFirst(L, 22);
     insertFirst(L, 11);
     display(L);
 
-    printf("Insert Last: \n");
-    insertLast(L, 99);
-    display(L);
+    // printf("Insert Last\n");
+    // insertLast(L, 99);
+    // display(L);
 
-    printf("Delete First: \n");
-    deleteStart(L);
-    display(L);
+    // printf("Insert Sorted\n");
+    // insertSort(L, 5);
+    // display(L);
 
-    printf("Delete Last: \n");
-    deleteLast(L);
-    display(L);
+    // printf("Delete First\n");
+    // deleteStart(L);
+    // display(L);
 
-    printf("Delete Position: \n");
-    deletePos(L, 2);
-    display(L);
+    // printf("Delete Last\n");
+    // deleteLast(L);
+    // display(L);
 
-    printf("Retrieve Data: \n");
-    int res = retrieve(L, 3);
-    if(res > 0){
-        printf("The data retrieve from that position is %d.\n", res);
-        display(L);
-    }
+    // printf("Delete Position\n");
+    // deletePos(L, 2);
+    // display(L);
 
-    printf("Locate Data: \n");
-    int got = locate(L, 33);
-    if(got > 0){
-        printf("The data is located in position %d.\n", got);
-        display(L);
-    }else{
-        printf("The data did not exist in the list.\n");
-        display(L);
-    }
+    // printf("Retrieve Data\n");
+    // int res = retrieve(L, 3);
+    // if(res > 0){
+    //     printf("The data retrieve from that position is %d.\n", res);
+    //     display(L);
+    // }
 
-    empty(L);
+    // printf("Locate Data\n");
+    // int got = locate(L, 33);
+    // if(got > 0){
+    //     printf("The data is located in position %d.\n", got);
+    //     display(L);
+    // }else{
+    //     printf("The data did not exist in the list.\n");
+    //     display(L);
+    // }
+
+    // empty(L);
     return 0;
 }
 
@@ -163,6 +165,41 @@ void empty(List *list){
     list->count = 0;
 }
 
+void sortList(List *list){
+
+}
+
+void insertSort(List *list, int data){
+    if(list->head->data > data){
+        insertFirst(list, data);
+    }else{
+        Node *trav = list->head, *prev;
+
+        Node *newNode = (Node *)malloc(sizeof(Node));
+        if(newNode == NULL)printf("Memory allocation failed.\n");
+        newNode->data = data;
+
+        int pos = 0;
+        prev = trav;
+        trav = trav->next;
+        for(int i = 0; trav != NULL; trav = trav->next, prev = prev->next, i++){
+            if(data < trav->data && data > prev->data){
+                pos = i;
+            }else if(data > trav->data){
+                pos = i + 1;
+            }
+        }
+
+        trav = list->head;
+        prev = trav;
+        trav = trav->next;
+        for(int i = 0; i < pos; trav = trav->next, prev = prev->next, i++){}
+        prev->next = newNode;
+        newNode->next = trav;
+        list->count++;
+    }
+}
+
 void insertPos(List *list, int data, int index){
     if(index > list->count){
         printf("Invalid index it should be less than or equal to count.\n");
@@ -205,14 +242,11 @@ void insertLast(List *list, int data){
 }
     
 void insertFirst(List *list, int data){
-    List *temp = list;
-
     Node *newNode = (Node *)malloc(sizeof(Node));
-    if(newNode == NULL){
-        printf("Memory allocation failed.\n");
-    }
+    if(newNode == NULL)printf("Memory allocation failed.\n");
+    
     newNode->data = data;
-    newNode->next = temp->head;
+    newNode->next = list->head;
 
     list->head = newNode;
     list->count++;
