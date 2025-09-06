@@ -32,10 +32,11 @@ int main(){
     L = initialize();
 
     printf("Insert First\n");
-    insertFirst(L, 44);
-    insertFirst(L, 33);
     insertFirst(L, 22);
+    insertFirst(L, 33);
     insertFirst(L, 11);
+    insertFirst(L, 44);
+    sortList(L);
     display(L);
 
     // printf("Insert Last\n");
@@ -166,7 +167,17 @@ void empty(List *list){
 }
 
 void sortList(List *list){
+    if(list->head == NULL) printf("The list is empty");
 
+    for(Node *tempI = list->head; tempI->next != NULL; tempI = tempI->next){
+        for(Node *tempJ = tempI->next; tempJ != NULL; tempJ = tempJ->next){
+            if(tempI->data > tempJ->data){
+                int temp = tempI->data;
+                tempI->data = tempJ->data;
+                tempJ->data = temp;
+            }
+        }
+    }
 }
 
 void insertSort(List *list, int data){
