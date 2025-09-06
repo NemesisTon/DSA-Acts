@@ -68,12 +68,12 @@ int main(){
 }
 
 List sortList(List L){
-    for(int i = 0; i < L.count - 1; i++){
-        for(int j = 0; j < L.count; j++){
-            if(L.elem[j] > L.elem[j + 1]){
+    for(int i = 0; i < L.count; i++){
+        for(int j = 0; j < L.count - 1; j++){
+            if(L.elem[i] < L.elem[j]){
                 int temp = L.elem[j];
-                L.elem[j] = L.elem[j + 1];
-                L.elem[j + 1] = temp;
+                L.elem[j] = L.elem[i];
+                L.elem[i] = temp;
             }
         }
     }
