@@ -21,58 +21,57 @@ void resize(List *L);
 void makeNULL(List *L);
 
 int main(){
-    List L;
+    List insideList;
+    List *L = &insideList;
 
-    initialize(&L);
-    L.elemPtr[0] = 11;
-    L.elemPtr[1] = 22;
-    L.elemPtr[2] = 33;
-    L.elemPtr[3] = 44;
-    L.elemPtr[4] = 55;
-    L.count = 5;
+    initialize(L);
+    L->elemPtr[0] = 11;
+    L->elemPtr[1] = 22;
+    L->elemPtr[2] = 33;
+    L->elemPtr[3] = 44;
+    L->elemPtr[4] = 55;
+    L->count = 5;
 
     printf("1. Insert #99 in position 2.\n");
-    insertPos(&L, 99, 2);
-    display(&L);
+    insertPos(L, 99, 2);
+    display(L);
 
     printf("\n\n");
 
     printf("2. Delete position 2.\n");
-    deletePos(&L, 2);
-    display(&L);
+    deletePos(L, 2);
+    display(L);
 
     printf("\n\n");
 
     printf("3. Locate #22.\n");
-    int res = locate(&L, 22);
+    int res = locate(L, 22);
     if(res > 0){
         printf("The location of the number is in position %d.\n", res);
-        display(&L);
+        display(L);
     }else{
         printf("The data did not exist.\n");
-        display(&L);
+        display(L);
     }
 
     printf("\n\n");
 
     printf("4. Retrieve the number in position 3.");
-    int got = retrieve(&L, 3);
+    int got = retrieve(L, 3);
     if(got > 0){
         printf("\nThe element in position 3 is %d.\n", got);
-        display(&L);
+        display(L);
     }
     
     printf("\n\n");
 
     printf("5. Insert #40 in sorted order.\n");
-    insertSorted(&L, 40);
-    display(&L);
+    insertSorted(L, 40);
+    display(L);
 
     printf("\n\n");
 
-    printf("6. Freeing the heap.\n");
-    makeNULL(&L);
-
+    makeNULL(L);
     return 0;
 }
 
