@@ -10,6 +10,7 @@ typedef struct
 
 List initialize(List L);
 List insertPos(List L, int data, int position);
+List sortList(List L);
 List deletePos(List L, int position);
 int locate(List L, int data);
 List insertSorted(List L, int data);
@@ -20,14 +21,16 @@ int main(){
     List L;
     
     L = initialize(L);
-    L.elem[0] = 0;
-    L.elem[1] = 11;
-    L.elem[2] = 22;
-    L.elem[3] = 33;
-    L.elem[4] = 44;
+    L.elem[4] = 0;
+    L.elem[3] = 11;
+    L.elem[0] = 22;
+    L.elem[1] = 33;
+    L.elem[2] = 44;
     L.count = 5;
+    L = sortList(L);
+    display(L);
 
-    printf("1. Insert 77 in Position 3: \n");
+    printf("\n\n1. Insert 77 in Position 3: \n");
     L = insertPos(L, 77, 2);
     display(L);
     
@@ -62,6 +65,20 @@ int main(){
     display(L);
 
     return 0;
+}
+
+List sortList(List L){
+    for(int i = 0; i < L.count - 1; i++){
+        for(int j = 0; j < L.count; j++){
+            if(L.elem[j] > L.elem[j + 1]){
+                int temp = L.elem[j];
+                L.elem[j] = L.elem[j + 1];
+                L.elem[j + 1] = temp;
+            }
+        }
+    }
+
+    return L;
 }
 
 List initialize(List L){
