@@ -39,44 +39,46 @@ int main(){
     sortList(L);
     display(L);
 
-    // printf("Insert Last\n");
-    // insertLast(L, 99);
-    // display(L);
+    printf("Insert Last\n");
+    insertLast(L, 99);
+    display(L);
 
-    // printf("Insert Sorted\n");
-    // insertSort(L, 5);
-    // display(L);
+    printf("Insert Sorted\n");
+    insertSort(L, 5);
+    display(L);
 
-    // printf("Delete First\n");
-    // deleteStart(L);
-    // display(L);
+    printf("Delete First\n");
+    deleteStart(L);
+    display(L);
 
-    // printf("Delete Last\n");
-    // deleteLast(L);
-    // display(L);
+    printf("Delete Last\n");
+    deleteLast(L);
+    display(L);
 
-    // printf("Delete Position\n");
-    // deletePos(L, 2);
-    // display(L);
+    printf("Delete Position\n");
+    deletePos(L, 2);
+    display(L);
 
-    // printf("Retrieve Data\n");
-    // int res = retrieve(L, 3);
-    // if(res > 0){
-    //     printf("The data retrieve from that position is %d.\n", res);
-    //     display(L);
-    // }
+    printf("Retrieve Data\n");
+    int res = retrieve(L, 0);
+    if(res > 0){
+        printf("The data retrieve from that position is %d.\n", res);
+        display(L);
+    }else{
+        display(L);
+    }
 
-    // printf("Locate Data\n");
-    // int got = locate(L, 33);
-    // if(got > 0){
-    //     printf("The data is located in position %d.\n", got);
-    //     display(L);
-    // }else{
-    //     printf("The data did not exist in the list.\n");
-    //     display(L);
-    // }
+    printf("Locate Data\n");
+    int got = locate(L, 33);
+    if(got > 0){
+        printf("The data is located in position %d.\n", got);
+        display(L);
+    }else{
+        printf("The data did not exist in the list.\n");
+        display(L);
+    }
 
-    // empty(L);
+    empty(L);
     return 0;
 }
 
