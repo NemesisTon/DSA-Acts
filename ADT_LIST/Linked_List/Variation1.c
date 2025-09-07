@@ -43,8 +43,12 @@ int main(){
     L = insertLast(L, 99);
     display(L);
 
+    printf("Insert Position\n");
+    L = insertPos(L, 10, 2);
+    display(L);
+
     printf("Insert Sorted\n");
-    L = insertSort(L, 5);
+    L = insertSort(L, 50);
     display(L);
 
     // printf("Delete First\n");
@@ -115,7 +119,29 @@ List insertSort(List list, int data){
 }
 
 List insertPos(List list, int data, int index){
+    if(index > list.count){
+        printf("The index/position should be less than or equal to count.\n");
+    }else if(list.head == NULL || index == 0){
+        list = insertFirst(list, data);
+    }else if(list.count == index){
+        list = insertLast(list, data);
+    }else{
+        Node *newNode = (Node *)malloc(sizeof(Node));
+        if(newNode == NULL){printf("Memory Allocation Failed.\n");}
+        newNode->data = data;
 
+        Node *trav = list.head;
+        for(int i = 0; i < index - 1; i++){
+            trav = trav->next;
+        }
+        Node *prev = trav;
+        newNode->next = trav->next;
+        prev->next = newNode;
+
+        list.count++;
+    }
+    
+    return list;
 }
 
 List insertLast(List list, int data){
@@ -130,8 +156,9 @@ List insertLast(List list, int data){
         for(; trav->next != NULL; trav = trav->next){} //WHY DAFAQ IT WILL NOT WORK IF ITS (trav != NULL) but will work if its (trav->next != NULL)
         trav->next = newNode;
         newNode->next = NULL;
+
+        list.count++;
     }
-    list.count++;
 
     return list;
 }
@@ -154,9 +181,10 @@ void display(List list){
         if(trav->next != NULL){
             printf("%d, ", trav->data);
         }else{
-            printf("%d]\n\n", trav->data);
+            printf("%d]\nCount: %d\n\n", trav->data, list.count);
         }
     }
+    
 }
 
 List initialize(List list){
