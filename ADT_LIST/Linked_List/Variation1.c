@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct node
 {
@@ -44,16 +45,16 @@ int main(){
     display(L);
 
     printf("Insert Position\n");
-    L = insertPos(L, 10, 2);
+    L = insertPos(L, 10, 0);
     display(L);
 
     printf("Insert Sorted\n");
-    L = insertSort(L, 50);
+    L = insertSort(L, 150);
     display(L);
 
-    // printf("Delete First\n");
-    // deleteStart(L);
-    // display(L);
+    printf("Delete First\n");
+    L = deleteStart(L);
+    display(L);
 
     // printf("Delete Last\n");
     // deleteLast(L);
@@ -82,7 +83,7 @@ int main(){
     //     display(L);
     // }
 
-    // empty(L);
+    L = empty(L);
     return 0;
 }
 
@@ -95,7 +96,16 @@ int retrieve(List list, int index){
 }
 
 List empty(List list){
+    Node *trav = list.head;
 
+    for(; trav != NULL; trav = list.head){
+        list.head = trav->next;
+        free(trav);
+        list.count--;
+    }
+    list.head = NULL;
+
+    return list;
 }
 
 List sortList(List list){
@@ -107,15 +117,50 @@ List deletePos(List list, int index){
 }
 
 List deleteLast(List list){
-
+    
 }
 
 List deleteStart(List list){
+    Node *trav = list.head;
+    list.head = trav->next;
+    free(trav);
+    list.count--;
 
+    return list;
 }
 
 List insertSort(List list, int data){
+    if(list.head == NULL){
+        list = insertFirst(list, data);
+    }else{
+        Node *trav = list.head, *prev = trav;
+        Node *newNode = (Node *)malloc(sizeof(Node));
+        newNode->data = data;
 
+        int pos = 0;
+        trav = trav->next;
+        for(int i = 0; trav != NULL; prev = prev->next, trav = trav->next, i++){
+            if(data < trav->data && prev->data < data){
+                pos = i;
+            }else if(data > trav->data){
+                pos = i + 1;
+            }
+        }
+        
+        if(pos == 0){
+            list = insertFirst(list, data);
+        }else{
+            trav = list.head;
+            prev = trav;
+            trav = trav->next;
+            for(int i = 0; i < pos; prev = prev->next, trav = trav->next, i++){}
+            newNode->next = trav;
+            prev->next = newNode;
+
+            list.count++;
+        }
+    }
+    return list;
 }
 
 List insertPos(List list, int data, int index){
@@ -176,15 +221,20 @@ List insertFirst(List list, int data){
 }
 
 void display(List list){
-    printf("Elem: [");
-    for(Node *trav = list.head; trav != NULL; trav = trav->next){
+    char buffer[256] = "Elem: [";
+    char temp[20];
+
+    Node *trav = list.head;
+    while(trav != NULL){
         if(trav->next != NULL){
-            printf("%d, ", trav->data);
+            sprintf(temp, "%d, ", trav->data);
         }else{
-            printf("%d]\nCount: %d\n\n", trav->data, list.count);
+            sprintf(temp, "%d]", trav->data);
         }
+        strcat(buffer, temp);
+        trav = trav->next;
     }
-    
+    printf("%-50s Count: %d\n\n", buffer, list.count);
 }
 
 List initialize(List list){

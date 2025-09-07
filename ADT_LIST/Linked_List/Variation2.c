@@ -161,12 +161,12 @@ void deleteStart(List *list){
 }
 
 void empty(List *list){
-    Node *trav, *prev;
+    Node *trav, *nextNode;
     for(trav = list->head; trav != NULL;){
-        prev = trav->next;
+        nextNode = trav->next;
         free(trav);
-        list->head = prev;
-        trav = prev;
+        list->head = nextNode;
+        trav = nextNode;
     }
     list->head = NULL;
     list->count = 0;
