@@ -43,6 +43,10 @@ int main(){
     insertLast(L, 99);
     display(L);
 
+    printf("Insert Position\n");
+    insertPos(L, 10, 1);
+    display(L);
+
     printf("Insert Sorted\n");
     insertSort(L, 5);
     display(L);
