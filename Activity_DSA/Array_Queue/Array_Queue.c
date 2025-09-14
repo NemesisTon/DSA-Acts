@@ -25,14 +25,7 @@ bool isEmpty(Queue* q){
 }
 
 int front(Queue* q){
-    int flag = -1;
-    if(!isEmpty(q)){
-        flag = q->list.item[q->front];
-    }else{
-        printf("The queue is empty.\n");
-    }
-
-    return flag;
+    return !isEmpty(q) ? q->list.item[q->front] : - 1;
 }
 
 int dequeue(Queue* q){
@@ -113,7 +106,7 @@ int main(){
 
     printf("Top Queue List\n");
     int top = front(q);
-    if(top > 0){
+    if(top >= 0){
         printf("The first in queue is: %d\n", top); 
         display(q);
     }
