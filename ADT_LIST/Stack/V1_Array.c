@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAX 10
 
@@ -16,7 +17,6 @@ void pop(Stack *s);
 void push(Stack *s, int value);
 void display(Stack *s);
 Stack* initialize();
-
 
 int main(){
     Stack *s = initialize();
@@ -41,75 +41,76 @@ int main(){
         display(s);
     }
     
-    printf("Empty in Stack Array\n");
-    printf("Is the array empty? %d\n\n", isEmpty(s));
+    printf("Empty Stack List\n");
+    int empty = isEmpty(s);
+    if(empty == 1){
+        printf("Is it empty? Yes.\n\n");    
+    }else{
+        printf("Is it empty? No.\n\n");
+    }
 
-    printf("Full in Stack Array\n");
-    printf("Is the array full? %d\n\n", isFull(s));
+    printf("Full Stack List\n");
+    int full = isFull(s);
+    if(full == 1){
+        printf("Is it full? Yes.\n\n");    
+    }else{
+        printf("Is it full? No.\n\n");    
+    }
 
     return 0;
 }
 
-bool isFull(Stack *s){
-    if(s->top == MAX){
-        return true;
-    }else{
-        return false;
-    } 
+Stack* initialize() {
+    Stack *s = (Stack *)malloc(sizeof(Stack));
+    s->top = -1;
+    return s;    
 }
 
-bool isEmpty(Stack *s){
-    if(s->top == -1){
-        return true;
-    }else{
-        return false;
-    } 
+bool isFull(Stack *s) {
+    return s->top == (MAX - 1) ? true : false;
 }
 
-int peek(Stack *s){
-    int got = 0;
-    if(s->top == -1){
-        printf("The stack array is empty.\n\n");
-    }else{
-        got = s->items[s->top];
+bool isEmpty(Stack *s) {
+    return s->top == - 1 ? true : false;
+}
+
+int peek(Stack *s) {
+    if (isEmpty(s)) {
+        printf("Stack is empty!\n");
+        return -1;
     }
-    return got;
+    return s->items[s->top];
 }
 
-void pop(Stack *s){
-    if(s->top == -1){
-    }else{
+void pop(Stack *s) {
+    if(!isEmpty(s)){
         s->top--;
+    }else{
+        printf("The array is empty.\n");
     }
 }
 
-void push(Stack *s, int value){
-    if(s->top != MAX){
-        s->top++;
-        s->items[s->top] = value;
-    }else if(s->top == MAX){
+void push(Stack *s, int value) {
+    if(!isFull(s)){
+        s->items[++(s->top)] = value;
+    }else{
         printf("The array is full.\n");
     }
 }
 
-void display(Stack *s){
-    if(s->top == -1){
-        printf("Stack array is empty.\n\n");
-    }else{
-        printf("Elem: [");
-        for(int i = s->top; i >= 0; i--){
-            if(i != 0){
-                printf("%d, ", s->items[i]);
+void display(Stack *s) {
+    if(!isEmpty(s)){
+        char buffer[256] = "Elem: [";
+        char temp[20];
+        
+        for(int i = 0; i <= s->top; i++){
+            if(i < s->top){
+                sprintf(temp, "%d, ", s->items[i]);
             }else{
-                printf("%d]\n\n", s->items[i]);
+                sprintf(temp, "%d]", s->items[i]);
             }
+            strcat(buffer, temp);
         }
+        printf("%-50s Count: %d\n\n", buffer, s->top + 1);
     }
-}
-
-Stack* initialize(){
-    Stack *s = (Stack *)malloc(sizeof(Stack));
-    s->top = - 1;
-    
-    return s;
 }
